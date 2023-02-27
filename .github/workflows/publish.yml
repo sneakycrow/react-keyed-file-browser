@@ -13,19 +13,22 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v2
+      - run: sudo apt install -y jq
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
           scope: "@sneakycrow"
 
-      - name: installing packages
-        run: yarn install
+      - name: update package.json version
+        run: |
+          image=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
-      - name: building
-        run: yarn build
+      - name: build package
+        run: npm ci
 
       - name: publishing package
-        run: yarn publish --version ${{ github.ref_name }}
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
