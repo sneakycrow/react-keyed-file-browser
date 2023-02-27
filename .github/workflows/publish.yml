@@ -23,7 +23,7 @@ jobs:
 
       - name: update package.json version
         run: |
-          image=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
+          version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
       - name: build package
         run: npm ci
