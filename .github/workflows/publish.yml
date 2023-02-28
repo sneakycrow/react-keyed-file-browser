@@ -33,7 +33,7 @@ jobs:
 
       - name: update package.json version
         run: |
-          version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
+          version=${{ github.ref_name }}-${{ github.sha }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
       - name: install package dependencies
         run: npm ci
@@ -42,7 +42,7 @@ jobs:
         run: npm run build
 
       - name: publishing package
-        run: npm publish --access public --tag nightly
+        run: npm publish --access public --tag nightly --tag ${{ github.ref_name }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
