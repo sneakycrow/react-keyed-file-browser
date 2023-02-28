@@ -3,6 +3,7 @@ name: publish package
 on:
   release:
     types: [prereleased, released]
+  workflow_dispatch:
 
 jobs:
   publish-gpr:
@@ -32,7 +33,7 @@ jobs:
         run: npm run build
 
       - name: publishing package
-        run: npm publish --access public
+        run: npm publish --access public --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish-npm:
@@ -61,6 +62,6 @@ jobs:
         run: npm run build
 
       - name: publishing package
-        run: npm publish --access public
+        run: npm publish --access public --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
