@@ -18,6 +18,7 @@ jobs:
         id: deployment
         with:
           step: start
+          debug: true
           token: ${{ secrets.GITHUB_TOKEN }}
           env: github-registry
 
