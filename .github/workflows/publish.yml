@@ -19,7 +19,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: github
+          env: github-registry
 
       - uses: actions/checkout@v2
       - run: sudo apt install -y jq
@@ -68,7 +68,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: npm
+          env: npm-registry
 
       - uses: actions/checkout@v2
       - run: sudo apt install -y jq
