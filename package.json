@@ -28,9 +28,9 @@
   "author": "Sneaky Crow, LLC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/uptick/react-keyed-file-browser/issues"
+    "url": "https://github.com/sneakycrow/react-keyed-file-browser/issues"
   },
-  "homepage": "https://github.com/uptick/react-keyed-file-browser#readme",
+  "homepage": "https://github.com/sneakycrow/react-keyed-file-browser#readme",
   "dependencies": {
     "classnames": "^2.2.6",
     "date-fns": "^2.22.1",
