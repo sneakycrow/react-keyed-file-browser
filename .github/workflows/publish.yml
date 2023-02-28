@@ -13,6 +13,14 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: github
+
       - uses: actions/checkout@v2
       - run: sudo apt install -y jq
 
@@ -36,6 +44,17 @@ jobs:
         run: npm publish --access public --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: update deployment status
+        uses: bobheadxi/deployments@v1
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
   publish-npm:
     name: publish to npm
     runs-on: ubuntu-latest
@@ -43,6 +62,14 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: npm
+
       - uses: actions/checkout@v2
       - run: sudo apt install -y jq
 
@@ -65,3 +92,13 @@ jobs:
         run: npm publish --access public --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: update deployment status
+        uses: bobheadxi/deployments@v1
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
