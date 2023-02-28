@@ -25,8 +25,11 @@ jobs:
         run: |
           version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
-      - name: build package
+      - name: install package dependencies
         run: npm ci
+
+      - name: build package
+        run: npm run build
 
       - name: publishing package
         run: npm publish --access public
@@ -51,8 +54,11 @@ jobs:
         run: |
           version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
-      - name: build package
+      - name: install package dependencies
         run: npm ci
+
+      - name: build package
+        run: npm run build
 
       - name: publishing package
         run: npm publish --access public
