@@ -1,7 +1,6 @@
 # react-keyed-file-browser
-[![publish](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/publish.yml/badge.svg?branch=main&event=release)](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/publish.yml)
-[![build](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/build.yml/badge.svg?branch=main&event=release)](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/build.yml)
-
+[![publish](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/publish.yml/badge.svg?event=release)](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/publish.yml)
+[![build](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/sneakycrow/react-keyed-file-browser/actions/workflows/build.yml)
 Folder based file browser given a flat keyed list of objects, powered by React.
 
 ## Installation
