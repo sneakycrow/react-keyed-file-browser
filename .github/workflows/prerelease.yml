@@ -1,0 +1,16 @@
+name: prerelease
+
+on:
+  release:
+    types:
+      - prereleased
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: nightly
+      version: ${{ github.ref_name }}
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

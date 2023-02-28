@@ -1,9 +1,20 @@
 name: publish
 
 on:
-  release:
-    types: [prereleased, released]
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      tag:
+        required: false
+        default: nightly
+        type: string
+      version:
+        required: true
+        type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
+      GH_TOKEN:
+        required: true
 
 jobs:
   publish-gpr:
@@ -24,7 +35,7 @@ jobs:
 
       - name: update package.json version
         run: |
-          version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
+          version=${{ inputs.version }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
       - name: install package dependencies
         run: npm ci
@@ -33,9 +44,9 @@ jobs:
         run: npm run build
 
       - name: publishing package
-        run: npm publish --access public --tag nightly
+        run: npm publish --access public --tag ${{ inputs.tag }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
 
   publish-npm:
     name: publish to npm
@@ -54,7 +65,7 @@ jobs:
 
       - name: update package.json version
         run: |
-          version=${{ github.ref_name }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
+          version=${{ inputs.version }}; echo $(jq --arg version "$version" '.version = $version' package.json) > package.json
 
       - name: install package dependencies
         run: npm ci
@@ -63,6 +74,6 @@ jobs:
         run: npm run build
 
       - name: publishing package
-        run: npm publish --access public --tag nightly
+        run: npm publish --access public --tag ${{ inputs.tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
